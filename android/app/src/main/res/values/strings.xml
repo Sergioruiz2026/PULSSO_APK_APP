@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">PULSSO v2.3 FINAL</string>
+    <string name="title_activity_main">PULSSO v2.3 FINAL</string>
+    <string name="package_name">cl.pulsso.app</string>
+    <string name="custom_url_scheme">cl.pulsso.app</string>
+</resources>

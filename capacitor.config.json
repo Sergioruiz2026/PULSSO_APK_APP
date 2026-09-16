@@ -1,0 +1,9 @@
+{
+  "appId": "cl.pulsso.app",
+  "appName": "PULSSO v2.3 FINAL",
+  "webDir": "public",
+  "bundledWebRuntime": false,
+  "plugins": {
+    "SplashScreen": {"launchShowDuration": 2000}
+  }
+}

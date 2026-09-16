@@ -1,0 +1,19 @@
+{
+  "name": "pulsso-app-v23",
+  "version": "2.3.0",
+  "description": "PULSSO v2.3 FINAL - Disclaimer + Crisis + Hibrido - Listo para Visual Studio Code",
+  "main": "public/index.html",
+  "scripts": {
+    "sync": "npx cap sync",
+    "android": "npx cap open android",
+    "build": "npx cap sync"
+  },
+  "dependencies": {
+    "@capacitor/android": "^5.7.0",
+    "@capacitor/app": "^5.0.6",
+    "@capacitor/core": "^5.7.0"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^5.7.0"
+  }
+}

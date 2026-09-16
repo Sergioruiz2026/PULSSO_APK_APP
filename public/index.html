@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="es-CL">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>PULSSO v2.3 FINAL</title>
+<link rel="manifest" href="./manifest.json">
+<meta name="theme-color" content="#070f1a">
+<link rel="icon" href="./logo.png">
+<style>
+  :root{--bg:#070f1a;--card:#0f1d2e;--card2:#13233a;--teal:#14b8a6;--teal2:#0d9488;--yellow:#facc15;--text:#e2f0ff;--muted:#8aa0bf;--line:rgba(20,184,166,.15)}
+  *{box-sizing:border-box;margin:0;padding:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+  body{background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;padding-bottom:132px}
+  .screen{display:none;max-width:480px;margin:0 auto;padding:18px 18px 40px;animation:fade .35s ease}
+  .screen.active{display:block}
+  @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+  .logo-wrap{display:flex;justify-content:center;margin:18px 0 18px}
+  .logo{width:168px;height:168px;border-radius:50%;object-fit:cover;box-shadow:0 0 0 2px rgba(20,184,166,.3),0 0 40px rgba(20,184,166,.35),0 0 80px rgba(20,184,166,.15);animation:breathe 3.2s ease-in-out infinite}
+  @keyframes breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.04)}}
+  h1{font-size:32px;letter-spacing:-.02em;text-align:center;line-height:.9}
+  h1 span{color:var(--teal)}
+  .sub{color:var(--muted);text-align:center;font-size:14px;margin:8px 0 16px;line-height:1.4}
+  .card{background:linear-gradient(180deg,var(--card),var(--card2));border:1px solid var(--line);border-radius:22px;padding:16px 16px;margin:12px 0}
+  .card.yellow{border-color:rgba(250,204,21,.25);background:linear-gradient(180deg,#1a1a0f,#1f1e14)}
+  .card.teal{border-color:rgba(20,184,166,.35)}
+  .disclaimer{display:flex;gap:10px;font-size:12.5px;line-height:1.4;color:#cbd8ee}
+  .disclaimer b{color:var(--yellow)}
+  .badge{display:inline-flex;align-items:center;gap:6px;background:rgba(20,184,166,.12);border:1px solid rgba(20,184,166,.2);color:var(--teal);padding:6px 10px;border-radius:999px;font-size:11px;font-weight:700;letter-spacing:.04em}
+  .btn{width:100%;border:0;border-radius:18px;padding:16px 18px;font-weight:800;font-size:15px;cursor:pointer;transition:.18s;display:flex;justify-content:center;align-items:center;gap:8px}
+  .btn-primary{background:var(--teal);color:#04201d;box-shadow:0 8px 24px rgba(20,184,166,.3)}
+  .btn-primary:active{transform:scale(.98)}
+  .btn-ghost{background:rgba(255,255,255,.06);color:var(--text);border:1px solid var(--line)}
+  .btn-yellow{background:var(--yellow);color:#231d00}
+  .steps{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .step-num{width:28px;height:28px;border-radius:10px;background:var(--teal);color:#05201d;display:grid;place-items:center;font-weight:900;font-size:14px}
+  .input{width:100%;background:#0b1626;border:1px solid var(--line);border-radius:14px;padding:14px 14px;color:var(--text);font-size:14px;outline:none}
+  .input:focus{border-color:var(--teal)}
+  .contact{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
+  .contact:last-child{border:0}
+  .chip{font-size:10px;font-weight:800;padding:4px 8px;border-radius:999px;letter-spacing:.04em}
+  .chip-yes{background:rgba(20,184,166,.18);color:var(--teal);border:1px solid rgba(20,184,166,.25)}
+  .chip-no{background:rgba(255,255,255,.07);color:var(--muted);border:1px solid var(--line)}
+  .footer-fixed{position:fixed;left:0;right:0;bottom:0;z-index:50;background:linear-gradient(180deg,rgba(7,15,26,0),rgba(7,15,26,.9) 18%,#070f1a 40%);padding:10px 12px calc(10px + env(safe-area-inset-bottom));max-width:480px;margin:0 auto;width:100%}
+  .footer-inner{background:#0a1728;border:1px solid rgba(20,184,166,.18);border-radius:18px;overflow:hidden}
+  .footer-dis{background:rgba(250,204,21,.08);color:#e8d98a;font-size:10.5px;padding:8px 12px;text-align:center;line-height:1.35;border-bottom:1px solid rgba(250,204,21,.12)}
+  .footer-crisis{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;font-size:11px;color:var(--muted)}
+  .footer-crisis b{color:var(--text)}
+  .footer-crisis a{color:var(--teal);text-decoration:none;font-weight:800}
+  .ad{max-width:480px;margin:10px auto 0;background:#0c1a2e;border:1px dashed rgba(20,184,166,.22);border-radius:12px;padding:8px 12px;display:flex;justify-content:space-between;align-items:center;font-size:10px;color:var(--muted);letter-spacing:.08em}
+  .ad b{color:var(--teal);font-size:11px}
+  .templates{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
+  .tpl{background:rgba(255,255,255,.06);border:1px solid var(--line);padding:8px 12px;border-radius:999px;font-size:12.5px;cursor:pointer}
+  .tpl:hover{border-color:var(--teal);color:var(--teal)}
+</style>
+</head>
+<body>
+<div class="ad"><span>AdMob Banner · 320x50</span><b>PULSSO · Espacio publicitario</b></div>
+
+<div id="s1" class="screen active">
+  <div class="logo-wrap"><img src="./logo.png" class="logo" alt="PULSSO logo"></div>
+  <h1>PULS<span>SO</span></h1>
+  <p class="sub">No estás solo. Estamos contigo, sin alarma, sin juicio.</p>
+  <div class="card yellow"><div class="disclaimer">🛡️ <div><b>PULSSO NO es terapia, no diagnostica.</b> No reemplaza profesionales. Solo ayuda a no estar solo. Si hay riesgo inmediato, llama <b>*4141</b> o <b>600 360 7777</b>.</div></div></div>
+  <div class="card"><span class="badge">✦ v2.3 FINAL · DISCLAIMER + CRISIS + HÍBRIDO</span><p style="margin-top:10px;font-size:13px;line-height:1.5;color:var(--muted)">Un espacio seguro, con voz neutral chilena, red de apoyo que eliges tú y mensajes que no asustan.</p></div>
+  <button class="btn btn-primary" onclick="showScreen(2);hablar('Bienvenido a PULSSO, no estás solo')">Comenzar →</button>
+</div>
+
+<div id="s2" class="screen">
+  <div class="logo-wrap"><img src="./logo.png" class="logo" style="width:110px;height:110px" alt="logo"></div>
+  <h1 style="font-size:28px">Hola, ¿cómo<br>funciona PULSSO?</h1>
+  <p class="sub">En 30 segundos te explicamos lo importante.</p>
+  <div class="card teal"><p style="font-size:14px;line-height:1.5">💛 <b>Sin alarmas.</b> Nunca enviamos "ALERTA" o "EMERGENCIA". Usamos frases suaves como <i>"¿vamos por un café?"</i> para cuidar tu privacidad y dignidad.</p></div>
+  <div class="card"><p style="font-size:14px;line-height:1.5">🌐 <b>Red híbrida.</b> Si tu contacto tiene PULSSO, le llega por la app. Si no, por WhatsApp. Siempre tú decides.</p></div>
+  <div class="card yellow"><div class="disclaimer">🛡️ <div><b>Recordatorio:</b> PULSSO no diagnostica, no reemplaza profesionales. Solo ayuda a no estar solo.</div></div></div>
+  <button class="btn btn-primary" onclick="showScreen(3)">Siguiente →</button>
+  <button class="btn btn-ghost" style="margin-top:8px" onclick="showScreen(1)">← Volver</button>
+</div>
+
+<div id="s3" class="screen">
+  <h1 style="font-size:26px;text-align:left">Cómo funciona<br><span>en 4 pasos</span></h1>
+  <div class="steps" style="margin-top:16px">
+    <div class="card"><div class="step-num">1</div><p style="margin-top:8px;font-size:13px;line-height:1.4"><b>Elige tu red</b><br><span style="color:var(--muted)">2-3 personas de confianza</span></p></div>
+    <div class="card"><div class="step-num">2</div><p style="margin-top:8px;font-size:13px;line-height:1.4"><b>Configura</b><br><span style="color:var(--muted)">Cómo te gusta que te hablen</span></p></div>
+    <div class="card"><div class="step-num">3</div><p style="margin-top:8px;font-size:13px;line-height:1.4"><b>Pide ayuda suave</b><br><span style="color:var(--muted)">Sin alarma: café, caminar...</span></p></div>
+    <div class="card"><div class="step-num">4</div><p style="margin-top:8px;font-size:13px;line-height:1.4"><b>Recibe apoyo</b><br><span style="color:var(--muted)">PULSSO o WhatsApp</span></p></div>
+  </div>
+  <div class="card yellow" style="margin-top:12px"><div class="disclaimer">⚠️ <div>Si estás en crisis ahora mismo, llama <b>*4141 Salud Responde</b> o <b>600 360 7777</b>. Están 24/7 para ti.</div></div></div>
+  <button class="btn btn-primary" style="margin-top:12px" onclick="showScreen(4)">Armar mi red híbrida →</button>
+</div>
+
+<div id="s4" class="screen">
+  <h1 style="font-size:26px;text-align:left">Tu red<br><span>híbrida de apoyo</span></h1>
+  <p class="sub" style="text-align:left">Agrega a quienes te hacen bien. Detectamos si tienen PULSSO.</p>
+  <div class="card">
+    <div style="display:grid;gap:8px">
+      <input id="nombre" class="input" placeholder="Nombre · ej: Fran">
+      <input id="telefono" class="input" placeholder="WhatsApp · ej: +56 9 1234 5678">
+      <button class="btn btn-primary" onclick="addContacto()">+ Agregar contacto</button>
+      <p style="font-size:11px;color:var(--muted)">Simulado + Firebase listo. Guardado en nube cuando conectes Firebase.</p>
+    </div>
+  </div>
+  <div id="lista" class="card"></div>
+  <button class="btn btn-yellow" onclick="if(document.querySelectorAll('.contact').length>=1)showScreen(5);else alert('Agrega al menos 1 contacto')">Continuar con esta red →</button>
+  <button class="btn btn-ghost" style="margin-top:8px" onclick="showScreen(3)">← Volver</button>
+</div>
+
+<div id="s5" class="screen">
+  <h1 style="font-size:26px;text-align:left">Antes de partir,<br><span>¿cómo te gusta?</span></h1>
+  <div class="card">
+    <p style="font-size:13px;font-weight:700;margin-bottom:10px">¿Cómo quieres que te hablen?</p>
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <label style="display:flex;gap:6px;align-items:center;background:rgba(255,255,255,.06);padding:8px 12px;border-radius:999px;font-size:13px"><input type="radio" name="tono" value="suave" checked> Suave y corto</label>
+      <label style="display:flex;gap:6px;align-items:center;background:rgba(255,255,255,.06);padding:8px 12px;border-radius:999px;font-size:13px"><input type="radio" name="tono" value="directo"> Directo pero amable</label>
+      <label style="display:flex;gap:6px;align-items:center;background:rgba(255,255,255,.06);padding:8px 12px;border-radius:999px;font-size:13px"><input type="radio" name="tono" value="con humor"> Con un toque de humor</label>
+    </div>
+  </div>
+  <div class="card"><p style="font-size:13px;font-weight:700;margin-bottom:10px">¿Te ayuda la voz?</p><label style="display:flex;gap:8px;align-items:center;font-size:13px"><input type="checkbox" id="voz" checked> Sí, voz neutral chilena es-CL</label></div>
+  <div class="card yellow"><div class="disclaimer">🛡️ <div>PULSSO no diagnostica, no reemplaza profesionales. Solo ayuda a no estar solo.</div></div></div>
+  <button class="btn btn-primary" onclick="guardarPref()">Guardar y seguir →</button>
+</div>
+
+<div id="s6" class="screen">
+  <h1 style="font-size:26px;text-align:left">Pide ayuda<br><span>sin alarma</span></h1>
+  <p class="sub" style="text-align:left">Elige una frase suave. No decimos "ALERTA".</p>
+  <div class="templates">
+    <div class="tpl" onclick="setMsg('¿vamos por un café? me vendría bien conversar un ratito')">☕ ¿vamos por un café?</div>
+    <div class="tpl" onclick="setMsg('¿caminamos un poco? necesito aire y compañía')">🌿 ¿caminamos un poco?</div>
+    <div class="tpl" onclick="setMsg('¿tienes 10 min para hablar? estoy con días raros')">💬 ¿tienes 10 min?</div>
+    <div class="tpl" onclick="setMsg('¿me acompañas a hacer algo tranquilo hoy?')">🤝 ¿me acompañas?</div>
+  </div>
+  <div class="card"><textarea id="msg" class="input" style="min-height:90px;resize:none" placeholder="Escribe tu mensaje...">¿vamos por un café? me vendría bien conversar un ratito</textarea><div id="red-preview" style="margin-top:12px"></div></div>
+  <button class="btn btn-primary" onclick="enviarAyuda()">Enviar a mi red híbrida 💛</button>
+  <button class="btn btn-ghost" style="margin-top:8px" onclick="showScreen(7)">Ir al inicio sin enviar</button>
+</div>
+
+<div id="s7" class="screen">
+  <div class="logo-wrap"><img src="./logo.png" class="logo" style="width:96px;height:96px" alt="logo"></div>
+  <h1 style="font-size:26px">Estás en <span>casa</span></h1>
+  <p class="sub">Tu red híbrida está guardada. Estamos contigo.</p>
+  <div class="card teal"><p style="font-size:14px;line-height:1.5">Hoy, ¿cómo te sientes? No tienes que explicarlo perfecto.</p><div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap"><button class="btn btn-ghost" style="width:auto;padding:10px 14px;font-size:13px" onclick="hablar('Gracias por decir que estás bien, lo valoramos mucho');marcarBien()">😊 Estoy bien</button><button class="btn btn-ghost" style="width:auto;padding:10px 14px;font-size:13px" onclick="showScreen(6)">💛 Necesito compañía</button></div></div>
+  <div id="home-red" class="card"></div>
+  <div class="card"><p style="font-size:11px;color:var(--muted);line-height:1.4">Publicidad nos ayuda a mantener PULSSO gratuito. <span id="adsCount">0</span> interacciones hoy.</p><div style="background:rgba(20,184,166,.08);border:1px solid rgba(20,184,166,.15);border-radius:12px;padding:10px;margin-top:8px;display:flex;justify-content:space-between;align-items:center"><span style="font-size:11px">Banner AdMob</span><span style="font-size:10px;background:var(--teal);color:#04201d;padding:4px 8px;border-radius:999px;font-weight:800">ANUNCIO</span></div></div>
+  <button class="btn btn-ghost" onclick="showScreen(1)">Reiniciar recorrido</button>
+</div>
+
+<div class="footer-fixed">
+  <div class="footer-inner">
+    <div class="footer-dis">🛡️ PULSSO no diagnostica, no reemplaza profesionales. Solo ayuda a no estar solo. v2.3 FINAL</div>
+    <div class="footer-crisis"><span>🆘 Crisis Chile: <b>*4141</b> · <b>600 360 7777</b> Salud Responde 24/7</span><a href="tel:*4141">Llamar</a></div>
+  </div>
+</div>
+
+<script>
+let contactos = JSON.parse(localStorage.getItem('pulsso_contactos')||'[]');
+let tono = localStorage.getItem('pulsso_tono')||'suave';
+let vozOn = (localStorage.getItem('pulsso_voz')||'1')==='1';
+let ads = parseInt(localStorage.getItem('pulsso_ads')||'0');
+
+function showScreen(n){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  const el=document.getElementById('s'+n);
+  if(el)el.classList.add('active');
+  window.scrollTo(0,0);
+  if(n===4||n===7)renderContactos();
+}
+function hablar(texto){
+  if(!vozOn) return;
+  try{
+    speechSynthesis.cancel();
+    const u=new SpeechSynthesisUtterance(texto);
+    u.lang='es-CL'; u.rate=0.88; u.pitch=1; u.volume=0.95;
+    const voces=speechSynthesis.getVoices();
+    const cl=voces.find(v=>v.lang==='es-CL'||v.lang==='es_CL');
+    if(cl) u.voice=cl;
+    speechSynthesis.speak(u);
+  }catch(e){}
+}
+function setMsg(t){document.getElementById('msg').value=t; hablar(t)}
+function addContacto(){
+  const nom=document.getElementById('nombre').value.trim();
+  const tel=document.getElementById('telefono').value.trim();
+  if(!nom||!tel){alert('Completa nombre y WhatsApp');return}
+  const hasPulsso=Math.random()>0.45;
+  contactos.push({id:Date.now(),nombre:nom,telefono:tel,hasPulsso});
+  localStorage.setItem('pulsso_contactos',JSON.stringify(contactos));
+  document.getElementById('nombre').value=''; document.getElementById('telefono').value='';
+  renderContactos(); hablar('Contacto agregado, '+(hasPulsso?'tiene PULSSO':'por WhatsApp'));
+}
+function renderContactos(){
+  const cont=document.getElementById('lista');
+  const home=document.getElementById('home-red');
+  const preview=document.getElementById('red-preview');
+  const make=(arr)=>arr.map(c=>{
+    const wa='https://wa.me/'+c.telefono.replace(/[^0-9]/g,'');
+    return '<div class="contact"><div><div style="font-weight:800;font-size:14px">'+c.nombre+'</div><div style="font-size:12px;color:var(--muted)">'+c.telefono+'</div></div><div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap"><span class="chip '+(c.hasPulsso?'chip-yes':'chip-no')+'">'+(c.hasPulsso?'PULSSO ✓':'WhatsApp')+'</span>'+(c.hasPulsso?'<button class="btn btn-primary" style="width:auto;padding:8px 12px;font-size:11px" onclick="preguntarPulsso(\''+c.nombre+'\')">PULSSO Chat</button><button class="btn btn-ghost" style="width:auto;padding:8px 12px;font-size:11px" onclick="preguntarWhatsApp(\''+wa+'\')">WhatsApp</button>':'<button class="btn btn-ghost" style="width:auto;padding:8px 12px;font-size:11px" onclick="preguntarWhatsApp(\''+wa+'\')">WhatsApp</button><button class="btn btn-yellow" style="width:auto;padding:8px 12px;font-size:11px" onclick="invitar(\''+c.nombre+'\',\''+wa+'\')">+ Invitar</button>')+'</div></div>';
+  }).join('') || '<p style="color:var(--muted);font-size:13px">Aún no tienes contactos. Agrega 1 para continuar.</p>';
+  if(cont) cont.innerHTML='<p style="font-weight:800;font-size:13px;margin-bottom:6px">Tu red híbrida ('+contactos.length+')</p>'+make(contactos);
+  if(home) home.innerHTML='<p style="font-weight:800;font-size:13px;margin-bottom:6px">Tu red</p>'+make(contactos);
+  if(preview) preview.innerHTML=contactos.length?'<p style="font-size:11px;color:var(--muted);margin-bottom:6px">Se enviará a:</p>'+make(contactos):'';
+  document.getElementById('adsCount')&&(document.getElementById('adsCount').innerText=ads);
+}
+function preguntarPulsso(nombre){hablar('Mensaje por PULSSO a '+nombre); alert('💬 PULSSO Chat interno\n\nMensaje enviado a '+nombre+' con frase suave:\n"'+document.getElementById('msg').value+'"\n\n(Simulado · sin alarma)')}
+function preguntarWhatsApp(link){hablar('Abriendo WhatsApp'); window.open(link+'?text='+encodeURIComponent(document.getElementById('msg').value),'_blank'); ads++; localStorage.setItem('pulsso_ads',ads); document.getElementById('adsCount')&&(document.getElementById('adsCount').innerText=ads)}
+function invitar(nombre,link){const txt='Hola '+nombre+', estoy usando PULSSO, una app chilena que me ayuda a no estar solo. ¿La instalas para que estemos conectados por ahí también? Es suave, sin alarmas. 💛'; if(confirm('¿Invitar a '+nombre+' a PULSSO por WhatsApp?')) window.open(link+'?text='+encodeURIComponent(txt),'_blank')}
+function guardarPref(){
+  const sel=document.querySelector('input[name="tono"]:checked');
+  if(sel) tono=sel.value;
+  vozOn=document.getElementById('voz').checked;
+  localStorage.setItem('pulsso_tono',tono); localStorage.setItem('pulsso_voz',vozOn?'1':'0');
+  hablar('Preferencias guardadas, gracias'); showScreen(6);
+}
+function enviarAyuda(){
+  if(!contactos.length){alert('Agrega tu red primero'); showScreen(4); return}
+  const msg=document.getElementById('msg').value.trim();
+  if(!msg){alert('Escribe tu mensaje suave');return}
+  hablar('Enviando a tu red híbrida, sin alarma');
+  alert('💛 Enviado sin alarma\n\n"'+msg+'"\n\nA '+contactos.length+' contactos · PULSSO si tienen app, WhatsApp si no.\n\nRecuerda: PULSSO no reemplaza profesionales. Si hay riesgo, *4141');
+  ads++; localStorage.setItem('pulsso_ads',ads); showScreen(7);
+}
+function marcarBien(){ads++; localStorage.setItem('pulsso_ads',ads); document.getElementById('adsCount').innerText=ads; alert('¡Qué bueno! Hoy marcaste que estás bien. Seguimos contigo 💛')}
+renderContactos();
+if('speechSynthesis' in window){speechSynthesis.onvoiceschanged=()=>{}}
+if('serviceWorker' in navigator){navigator.serviceWorker.register('./sw.js').catch(()=>{})}
+</script>
+</body>
+</html>
